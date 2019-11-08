@@ -10,6 +10,7 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
 
+    @IBOutlet weak var tabButton: UIBarButtonItem!
     
     @IBOutlet var tableFolders: UITableView!
     var folders: [String]?
@@ -27,6 +28,8 @@ class MainTableViewController: UITableViewController {
         
         folders = []
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.view.backgroundColor = .lightGray
+        
     }
 
     // MARK: - Table view data source
@@ -56,6 +59,7 @@ class MainTableViewController: UITableViewController {
                cell.textLabel?.text = folders![indexPath.row]
                cell.imageView?.image = UIImage(named: "ic_folder")
                cell.accessoryType = .disclosureIndicator
+            cell.backgroundColor = .lightGray
                return cell
         }
         
@@ -136,6 +140,8 @@ class MainTableViewController: UITableViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        cancelAction.setValue(UIColor.brown, forKey: "titleTextColor")
+        
         
         let addItemAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
@@ -145,16 +151,20 @@ class MainTableViewController: UITableViewController {
             self.tableFolders.reloadData()
             
         }
+        alertController.view.tintColor = .black
         
-        alertController.addAction(addItemAction)
         alertController.addAction(cancelAction)
+        alertController.addAction(addItemAction)
         
+//        self.present(alertController, animated: false, completion: {() -> Void in
+//            alertController.view.tintColor = .black
+//        })
         self.present(alertController, animated: false, completion: nil)
     }
     
 //    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 //        navTitle.title = "Folders"
-//        
+//
 //    }
 //    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 //        navTitle.title = ""
