@@ -13,6 +13,7 @@ class MainTableViewController: UITableViewController {
     
     @IBOutlet var tableFolders: UITableView!
     var folders: [String]?
+    @IBOutlet weak var navTitle: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class MainTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem?.tintColor = .black
         
         folders = []
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     // MARK: - Table view data source
@@ -149,4 +151,12 @@ class MainTableViewController: UITableViewController {
         
         self.present(alertController, animated: false, completion: nil)
     }
+    
+//    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        navTitle.title = "Folders"
+//        
+//    }
+//    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        navTitle.title = ""
+//    }
 }

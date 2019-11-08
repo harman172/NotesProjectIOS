@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Table View Controller-->
+        <!--Folders-->
         <scene sceneID="19P-X1-KOg">
             <objects>
                 <tableViewController id="lBx-LD-rAl" customClass="MainTableViewController" customModule="Harmanpreet_C0765590_Note_P1" customModuleProvider="target" sceneMemberID="viewController">
@@ -38,9 +38,10 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="wjS-uJ-VA2"/>
+                    <navigationItem key="navigationItem" title="Folders" largeTitleDisplayMode="always" id="wjS-uJ-VA2"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="navTitle" destination="wjS-uJ-VA2" id="g6y-b7-XqI"/>
                         <outlet property="tableFolders" destination="65g-Te-Bgf" id="0go-Ne-vs7"/>
                     </connections>
                 </tableViewController>
