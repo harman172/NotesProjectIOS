@@ -10,6 +10,10 @@ import UIKit
 
 class AddNotesTableViewController: UITableViewController {
 
+    var curFolderIndex: Int?
+    @IBOutlet var notesTableView: UITableView!
+    var delegateFolderView: MainTableViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,29 +25,46 @@ class AddNotesTableViewController: UITableViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .darkGray
+        print("Addnotes... \(curFolderIndex)")
     }
 
     // MARK: - Table view data source
 
+    /*
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }
+ */
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+//        var a  = FoldersNotes.folders
+        return FoldersNotes.folders[curFolderIndex!].notes.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+//
+//        // Configure the cell...
+//
+//        return cell
+        
+       
+            
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell"){
+            
+            cell.textLabel?.text = FoldersNotes.folders[curFolderIndex!].notes[indexPath.row]
+            cell.backgroundColor = .darkGray
+            
+            return cell
+        }
+        return UITableViewCell()
+        
+        
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -80,14 +101,29 @@ class AddNotesTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if let destination = segue.destination as? AddNewNote{
+            destination.delegateAddNotesTable = self
+        }
+        
     }
-    */
+    
+    
+    func addNewNote(note: String){
+        FoldersNotes.folders[curFolderIndex!].notes.append(note)
+        notesTableView.reloadData()
+        print(FoldersNotes.folders[curFolderIndex!].notes)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        delegateFolderView?.tableFolders.reloadData()
+    }
 
 }
