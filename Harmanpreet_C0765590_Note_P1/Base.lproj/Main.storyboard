@@ -97,6 +97,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="fun-ZS-BbK" kind="show" identifier="cellSegue" trigger="accessoryAction" id="6Ec-E9-HrJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -105,23 +108,31 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Delete note" image="trash" catalog="system" id="2i3-3W-fLY">
+                        <barButtonItem enabled="NO" title="Delete note" image="trash" catalog="system" id="2i3-3W-fLY">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
-                        <barButtonItem title="Move notes" image="tray.and.arrow.down" catalog="system" id="4ed-n0-9Sw">
+                        <barButtonItem enabled="NO" title="Move notes" image="tray.and.arrow.down" catalog="system" id="4ed-n0-9Sw">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="O3D-ox-tZ9"/>
                         <barButtonItem title="Add new note" image="pencil.and.ellipsis.rectangle" catalog="system" id="rel-7t-eAO">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="fun-ZS-BbK" kind="show" id="zQu-bD-5YX"/>
+                                <segue destination="fun-ZS-BbK" kind="show" identifier="addNewSegue" id="zQu-bD-5YX"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Notes" largeTitleDisplayMode="always" id="b1T-MZ-Su9"/>
+                    <navigationItem key="navigationItem" title="Notes" largeTitleDisplayMode="always" id="b1T-MZ-Su9">
+                        <barButtonItem key="rightBarButtonItem" title="Toggle buttpn" image="ellipsis" catalog="system" id="79D-xz-w6b">
+                            <connections>
+                                <action selector="toggleButton:" destination="dnO-Ym-Kfp" id="Uab-h7-bID"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnDelete" destination="2i3-3W-fLY" id="f2S-AP-8ly"/>
+                        <outlet property="btnMove" destination="4ed-n0-9Sw" id="DTW-i0-OGk"/>
                         <outlet property="notesTableView" destination="asV-cq-94M" id="uIM-EP-Avm"/>
                     </connections>
                 </tableViewController>
@@ -179,13 +190,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n1p-hI-GZ0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1988" y="87.706146926536732"/>
+            <point key="canvasLocation" x="1974" y="91"/>
         </scene>
     </scenes>
     <resources>
+        <image name="ellipsis" catalog="system" width="64" height="18"/>
         <image name="folder.badge.plus" catalog="system" width="64" height="42"/>
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
         <image name="trash" catalog="system" width="60" height="64"/>
         <image name="tray.and.arrow.down" catalog="system" width="64" height="54"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="6Ec-E9-HrJ"/>
+    </inferredMetricsTieBreakers>
 </document>

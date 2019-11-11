@@ -169,6 +169,8 @@ class MainTableViewController: UITableViewController {
 
 
     @IBAction func btnNewFolder(_ sender: UIBarButtonItem) {
+        
+        var alreadyExists = false
         let alertController = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
         
         alertController.addTextField { (txtNewFolder) in
@@ -184,8 +186,19 @@ class MainTableViewController: UITableViewController {
             let textField = alertController.textFields![0]
 //            self.folders!.append(textField.text!)
             let newFolder = FoldersNotes(folderName: textField.text!, notes: [])
-            FoldersNotes.folders.append(newFolder)
-            self.tableFolders.reloadData()
+            
+            for folder in FoldersNotes.folders{
+                if textField.text! == folder.folderName{
+                    self.showAlert("Name Taken", "Please choose a different name")
+                    alreadyExists = true
+                }
+            }
+            
+            if !alreadyExists{
+                FoldersNotes.folders.append(newFolder)
+                self.tableFolders.reloadData()
+                alreadyExists = false
+            }
             
         }
         addItemAction.setValue(UIColor.black, forKey: "titleTextColor")
@@ -209,6 +222,14 @@ class MainTableViewController: UITableViewController {
 //        navTitle.title = ""
 //    }
     
-    
+    func showAlert(_ title: String, _ msg: String){
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        okAction.setValue(UIColor.brown, forKey: "titleTextColor")
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
 }

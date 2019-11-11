@@ -11,8 +11,13 @@ import UIKit
 class AddNotesTableViewController: UITableViewController {
 
     var curFolderIndex: Int?
+    var curNotesIndex = -1
     @IBOutlet var notesTableView: UITableView!
     var delegateFolderView: MainTableViewController?
+    var isToggled = false
+    
+    @IBOutlet weak var btnMove: UIBarButtonItem!
+    @IBOutlet weak var btnDelete: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +61,7 @@ class AddNotesTableViewController: UITableViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell"){
             
             cell.textLabel?.text = FoldersNotes.folders[curFolderIndex!].notes[indexPath.row]
+            cell.accessoryType = .detailButton
             cell.backgroundColor = .darkGray
             
             return cell
@@ -111,6 +117,16 @@ class AddNotesTableViewController: UITableViewController {
         
         if let destination = segue.destination as? AddNewNote{
             destination.delegateAddNotesTable = self
+            destination.segue = segue.identifier
+            
+            if let tableCell = sender as? UITableViewCell{
+                if let index = tableView.indexPath(for: tableCell)?.row{
+                    
+                    destination.text = FoldersNotes.folders[curFolderIndex!].notes[index]
+                    curNotesIndex = index
+                }
+            }
+
         }
         
     }
@@ -121,9 +137,35 @@ class AddNotesTableViewController: UITableViewController {
         notesTableView.reloadData()
         print(FoldersNotes.folders[curFolderIndex!].notes)
     }
+
+    func updateItem(item: String){
+        
+//        guard items != nil && curIndex != -1 else {
+//            return
+//        }
+        
+        FoldersNotes.folders[curFolderIndex!].notes[curNotesIndex] = item
+                
+        let index = IndexPath(item: curNotesIndex, section: 0)
+        tableView.reloadRows(at: [index], with: .none)
+        
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         delegateFolderView?.tableFolders.reloadData()
     }
 
+    @IBAction func toggleButton(_ sender: UIBarButtonItem) {
+        
+        if !isToggled{
+            btnDelete.isEnabled = true
+            btnMove.isEnabled = true
+            isToggled = true
+        } else{
+            btnDelete.isEnabled = false
+            btnMove.isEnabled = false
+            isToggled = false
+        }
+        
+    }
 }

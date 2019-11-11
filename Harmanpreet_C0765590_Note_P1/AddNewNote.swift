@@ -11,6 +11,8 @@ import UIKit
 class AddNewNote: UIViewController {
 
     var delegateAddNotesTable: AddNotesTableViewController?
+    var segue: String?
+    var text: String?
     
     @IBOutlet weak var notesTextView: UITextView!
     
@@ -19,11 +21,16 @@ class AddNewNote: UIViewController {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .darkGray
+        notesTextView.text = text ?? ""
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegateAddNotesTable?.addNewNote(note: notesTextView.text)
+        if segue == "cellSegue"{
+            delegateAddNotesTable?.updateItem(item: notesTextView.text)
+        } else{
+            delegateAddNotesTable?.addNewNote(note: notesTextView.text)
+        }
     }
 
     /*
