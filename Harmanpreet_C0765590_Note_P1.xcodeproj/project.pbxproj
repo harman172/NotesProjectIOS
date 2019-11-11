@@ -13,6 +13,7 @@
 		9B5135152375EBD2002AA308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B5135142375EBD2002AA308 /* Assets.xcassets */; };
 		9B5135182375EBD2002AA308 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B5135162375EBD2002AA308 /* LaunchScreen.storyboard */; };
 		9B5135202375ECAE002AA308 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B51351F2375ECAE002AA308 /* MainTableViewController.swift */; };
+		9BA2FF742379E1FE00002DAA /* AddNotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA2FF732379E1FE00002DAA /* AddNotesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9B5135172375EBD2002AA308 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B5135192375EBD2002AA308 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B51351F2375ECAE002AA308 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		9BA2FF732379E1FE00002DAA /* AddNotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				9B5135162375EBD2002AA308 /* LaunchScreen.storyboard */,
 				9B5135192375EBD2002AA308 /* Info.plist */,
 				9B51351F2375ECAE002AA308 /* MainTableViewController.swift */,
+				9BA2FF732379E1FE00002DAA /* AddNotesTableViewController.swift */,
 			);
 			path = Harmanpreet_C0765590_Note_P1;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				9B51350C2375EBD1002AA308 /* AppDelegate.swift in Sources */,
 				9B5135202375ECAE002AA308 /* MainTableViewController.swift in Sources */,
 				9B51350E2375EBD1002AA308 /* SceneDelegate.swift in Sources */,
+				9BA2FF742379E1FE00002DAA /* AddNotesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

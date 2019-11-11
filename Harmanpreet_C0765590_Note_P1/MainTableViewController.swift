@@ -28,7 +28,7 @@ class MainTableViewController: UITableViewController {
         
         folders = []
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.view.backgroundColor = .lightGray
+        self.view.backgroundColor = .darkGray
         
     }
 
@@ -56,11 +56,11 @@ class MainTableViewController: UITableViewController {
 //        return cell
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "myCell"){
-               cell.textLabel?.text = folders![indexPath.row]
-               cell.imageView?.image = UIImage(named: "ic_folder")
-               cell.accessoryType = .disclosureIndicator
-            cell.backgroundColor = .lightGray
-               return cell
+            cell.textLabel?.text = folders![indexPath.row]
+            cell.imageView?.image = UIImage(named: "ic_folder")
+            cell.accessoryType = .disclosureIndicator
+            cell.backgroundColor = .darkGray
+            return cell
         }
         
         return UITableViewCell()
@@ -122,15 +122,16 @@ class MainTableViewController: UITableViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        
     }
-    */
+    
 
     @IBAction func btnNewFolder(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
@@ -145,13 +146,14 @@ class MainTableViewController: UITableViewController {
         
         let addItemAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
-            
             let textField = alertController.textFields![0]
             self.folders!.append(textField.text!)
             self.tableFolders.reloadData()
             
         }
-        alertController.view.tintColor = .black
+        addItemAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+//        alertController.view.tintColor = .black
         
         alertController.addAction(cancelAction)
         alertController.addAction(addItemAction)
