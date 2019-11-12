@@ -152,6 +152,9 @@ class AddNotesTableViewController: UITableViewController {
             }
 
         }
+        else if let dest = segue.destination as? MoveFolderViewController{
+            dest.delegateAddNotes = self
+        }
         
     }
     
@@ -191,14 +194,40 @@ class AddNotesTableViewController: UITableViewController {
             isToggled = false
         }
         
+        
     }
     
     
     @IBAction func buttonDelete(_ sender: UIBarButtonItem) {
+        
         guard selectedIndex != [] else {
             return
         }
         
+        
+        showDeleteAlert()
+        
+        
+        
+    }
+    
+    func showDeleteAlert(){
+        let alertController = UIAlertController(title: "Delete", message: "Are you sure?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (deleteAction) in
+            self.deleteNotes()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteNotes(){
         selectedIndex.sort(by: >)
         
         for items in selectedIndex{
@@ -206,6 +235,33 @@ class AddNotesTableViewController: UITableViewController {
         }
         
         tableView.reloadData()
+    }
+    
+    func moveNotes(folderIndex: Int){
+        
+        for index in selectedIndex{
+        
+            let note = FoldersNotes.folders[curFolderIndex!].notes[index]
+           FoldersNotes.folders[folderIndex].notes.append(note)
+       }
+        
+        deleteNotes()
+           
+    }
+    
+    @IBAction func buttonMove(_ sender: UIBarButtonItem) {
+        guard selectedIndex != [] else {
+            return
+        }
+        
+//        selectedIndex.sort(by: >)
+//
+//        for items in selectedIndex{
+//            FoldersNotes.folders[curFolderIndex!].notes.remove(at: items)
+//        }
+        
+        
+        
     }
     
 }
