@@ -19,6 +19,7 @@ class AddNotesTableViewController: UITableViewController {
     @IBOutlet weak var btnMove: UIBarButtonItem!
     @IBOutlet weak var btnDelete: UIBarButtonItem!
     
+    var selectedIndex = [Int]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +31,10 @@ class AddNotesTableViewController: UITableViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .darkGray
-        print("Addnotes... \(curFolderIndex)")
+        
+        self.tableView.allowsMultipleSelection = true
+        //        self.tableView.allowsMultipleSelectionDuringEditing = true
+
     }
 
     // MARK: - Table view data source
@@ -71,6 +75,26 @@ class AddNotesTableViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+           selectedIndex.append(indexPath.row)
+//           print("selected...\(selectedIndex)")
+           
+       }
+       
+       override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+           tableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
+           
+           
+           for index in selectedIndex.indices{
+               if selectedIndex[index] == indexPath.row{
+                   selectedIndex.remove(at: index)
+                   break
+               }
+           }
+      
+//           print("Deselected...\(selectedIndex)")
+       }
 
     /*
     // Override to support conditional editing of the table view.
@@ -168,4 +192,20 @@ class AddNotesTableViewController: UITableViewController {
         }
         
     }
+    
+    
+    @IBAction func buttonDelete(_ sender: UIBarButtonItem) {
+        guard selectedIndex != [] else {
+            return
+        }
+        
+        selectedIndex.sort(by: >)
+        
+        for items in selectedIndex{
+            FoldersNotes.folders[curFolderIndex!].notes.remove(at: items)
+        }
+        
+        tableView.reloadData()
+    }
+    
 }

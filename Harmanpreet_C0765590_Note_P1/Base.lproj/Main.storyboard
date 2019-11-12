@@ -110,6 +110,9 @@
                     <toolbarItems>
                         <barButtonItem enabled="NO" title="Delete note" image="trash" catalog="system" id="2i3-3W-fLY">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="buttonDelete:" destination="dnO-Ym-Kfp" id="rMB-UG-nek"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem enabled="NO" title="Move notes" image="tray.and.arrow.down" catalog="system" id="4ed-n0-9Sw">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
