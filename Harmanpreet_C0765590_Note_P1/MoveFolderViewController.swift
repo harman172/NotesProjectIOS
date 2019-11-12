@@ -10,9 +10,10 @@ import UIKit
 
 class MoveFolderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var foldersTableView: UITableView!
+    
     var delegateAddNotes: AddNotesTableViewController?
     
-    @IBOutlet weak var foldersTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,24 +40,38 @@ class MoveFolderViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-        
+        moveAlert(indexPath: indexPath)
+
+    }
+    
+    func moveAlert(indexPath: IndexPath){
         let alertController = UIAlertController(title: "Move to \(FoldersNotes.folders[indexPath.row].folderName)", message: "Are you sure?", preferredStyle: .alert)
-        let noAction = UIAlertAction(title: "No", style: .cancel)
-        let moveAction = UIAlertAction(title: "Move", style: .default) { (action) in
-            
+        
+        let noAction = UIAlertAction(title: "No", style: .cancel) { (noAction) in
+//            self.view.removeFromSuperview()
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
+        
+        let moveAction = UIAlertAction(title: "Move", style: .default) { (action) in
+            self.delegateAddNotes?.moveNotes(folderIndex: indexPath.row)
+//            self.view.removeFromSuperview()
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+                
+        noAction.setValue(UIColor.orange, forKey: "titleTextColor")
+        moveAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         alertController.addAction(noAction)
         alertController.addAction(moveAction)
         
         self.present(alertController, animated: false, completion: nil)
-        
-        delegateAddNotes?.moveNotes(folderIndex: indexPath.row)
-        
-        
     }
 
+    
+    @IBAction func buttonCancel(_ sender: UIButton) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -66,5 +81,7 @@ class MoveFolderViewController: UIViewController, UITableViewDelegate, UITableVi
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
 }

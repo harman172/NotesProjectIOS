@@ -10,16 +10,18 @@ import UIKit
 
 class AddNotesTableViewController: UITableViewController {
 
-    var curFolderIndex: Int?
-    var curNotesIndex = -1
-    @IBOutlet var notesTableView: UITableView!
-    var delegateFolderView: MainTableViewController?
-    var isToggled = false
     
+    @IBOutlet var notesTableView: UITableView!
     @IBOutlet weak var btnMove: UIBarButtonItem!
     @IBOutlet weak var btnDelete: UIBarButtonItem!
     
+    var curFolderIndex: Int?
+    var curNotesIndex = -1
+    var isToggled = false
     var selectedIndex = [Int]()
+    var delegateFolderView: MainTableViewController?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +32,7 @@ class AddNotesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.tintColor = .white
         self.view.backgroundColor = .darkGray
         
         self.tableView.allowsMultipleSelection = true
@@ -54,14 +57,9 @@ class AddNotesTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-//
-//        // Configure the cell...
-//
-//        return cell
-        
-       
-            
+
+        // Configure the cell...
+
         if let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell"){
             
             cell.textLabel?.text = FoldersNotes.folders[curFolderIndex!].notes[indexPath.row]
@@ -84,7 +82,6 @@ class AddNotesTableViewController: UITableViewController {
        
        override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
            tableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
-           
            
            for index in selectedIndex.indices{
                if selectedIndex[index] == indexPath.row{
@@ -139,21 +136,21 @@ class AddNotesTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
-        if let destination = segue.destination as? AddNewNote{
-            destination.delegateAddNotesTable = self
-            destination.segue = segue.identifier
+        if let addNoteDest = segue.destination as? AddNewNote{
+            addNoteDest.delegateAddNotesTable = self
+            addNoteDest.segue = segue.identifier
             
             if let tableCell = sender as? UITableViewCell{
                 if let index = tableView.indexPath(for: tableCell)?.row{
                     
-                    destination.text = FoldersNotes.folders[curFolderIndex!].notes[index]
+                    addNoteDest.text = FoldersNotes.folders[curFolderIndex!].notes[index]
                     curNotesIndex = index
                 }
             }
 
         }
-        else if let dest = segue.destination as? MoveFolderViewController{
-            dest.delegateAddNotes = self
+        else if let moveFolderDest = segue.destination as? MoveFolderViewController{
+            moveFolderDest.delegateAddNotes = self
         }
         
     }
@@ -166,10 +163,6 @@ class AddNotesTableViewController: UITableViewController {
     }
 
     func updateItem(item: String){
-        
-//        guard items != nil && curIndex != -1 else {
-//            return
-//        }
         
         FoldersNotes.folders[curFolderIndex!].notes[curNotesIndex] = item
                 
@@ -194,32 +187,30 @@ class AddNotesTableViewController: UITableViewController {
             isToggled = false
         }
         
-        
     }
     
     
     @IBAction func buttonDelete(_ sender: UIBarButtonItem) {
         
-        guard selectedIndex != [] else {
+        guard !selectedIndex.isEmpty else {
             return
         }
         
-        
         showDeleteAlert()
-        
-        
         
     }
     
     func showDeleteAlert(){
+        
         let alertController = UIAlertController(title: "Delete", message: "Are you sure?", preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .default) { (deleteAction) in
             self.deleteNotes()
         }
+        
+        cancelAction.setValue(UIColor.orange, forKey: "titleTextColor")
+        deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
         
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
@@ -227,9 +218,10 @@ class AddNotesTableViewController: UITableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    
     func deleteNotes(){
-        selectedIndex.sort(by: >)
         
+        selectedIndex.sort(by: >)
         for items in selectedIndex{
             FoldersNotes.folders[curFolderIndex!].notes.remove(at: items)
         }
@@ -237,30 +229,31 @@ class AddNotesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    
     func moveNotes(folderIndex: Int){
         
         for index in selectedIndex{
-        
             let note = FoldersNotes.folders[curFolderIndex!].notes[index]
-           FoldersNotes.folders[folderIndex].notes.append(note)
-       }
+            FoldersNotes.folders[folderIndex].notes.append(note)
+        }
         
+        // delete notes from current folder after moving to another
         deleteNotes()
            
     }
     
     @IBAction func buttonMove(_ sender: UIBarButtonItem) {
-        guard selectedIndex != [] else {
+        guard !selectedIndex.isEmpty else {
             return
         }
+        
+        
         
 //        selectedIndex.sort(by: >)
 //
 //        for items in selectedIndex{
 //            FoldersNotes.folders[curFolderIndex!].notes.remove(at: items)
 //        }
-        
-        
         
     }
     

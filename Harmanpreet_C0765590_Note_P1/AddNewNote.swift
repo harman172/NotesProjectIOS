@@ -28,7 +28,7 @@ class AddNewNote: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         if segue == "cellSegue"{
             delegateAddNotesTable?.updateItem(item: notesTextView.text)
-        } else{
+        } else if segue == "addNoteSegue"{
             delegateAddNotesTable?.addNewNote(note: notesTextView.text)
         }
     }

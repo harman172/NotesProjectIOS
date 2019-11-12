@@ -73,8 +73,8 @@
 				9B51351F2375ECAE002AA308 /* MainTableViewController.swift */,
 				9BA2FF732379E1FE00002DAA /* AddNotesTableViewController.swift */,
 				9BA2FF752379E8B300002DAA /* AddNewNote.swift */,
-				9BA2FF772379EA2700002DAA /* FoldersNotesModel.swift */,
 				9BA9B2A8237B4E7E004EB07E /* MoveFolderViewController.swift */,
+				9BA2FF772379EA2700002DAA /* FoldersNotesModel.swift */,
 			);
 			path = Harmanpreet_C0765590_Note_P1;
 			sourceTree = "<group>";

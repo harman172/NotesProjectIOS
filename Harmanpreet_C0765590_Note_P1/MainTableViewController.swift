@@ -11,7 +11,6 @@ import UIKit
 class MainTableViewController: UITableViewController {
 
     @IBOutlet weak var tabButton: UIBarButtonItem!
-    
     @IBOutlet var tableFolders: UITableView!
 //    var folders: [String]?
     @IBOutlet weak var navTitle: UINavigationItem!
@@ -24,7 +23,7 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.navigationItem.rightBarButtonItem?.tintColor = .black
+        self.navigationItem.rightBarButtonItem?.tintColor = .white
         
 //        folders = []
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -50,19 +49,11 @@ class MainTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-//
-//        // Configure the cell...
-//
-//        return cell
+
+        // Configure the cell...
         
+        //        let cell = UITableViewCell(style: .value1, reuseIdentifier: "myCell")
         
-//        guard FoldersNotes.folders.count != 0 else{
-//
-//               return UITableViewCell()
-//               }
-//
-//        let cell = UITableViewCell(style: .value1, reuseIdentifier: "myCell")
         if let cell = tableView.dequeueReusableCell(withIdentifier: "myCell"){
 //            cell.textLabel?.text = folders![indexPath.row]
             
@@ -71,14 +62,13 @@ class MainTableViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
             cell.backgroundColor = .darkGray
             cell.detailTextLabel?.text = "\(FoldersNotes.folders[indexPath.row].notes.count)"
+            cell.detailTextLabel?.textColor = .white
             
             //cell.selectionStyle
             
             return cell
-    }
-    return UITableViewCell()
-       
-        
+        }
+        return UITableViewCell()
     }
     
 
@@ -89,6 +79,8 @@ class MainTableViewController: UITableViewController {
         return true
     }
     
+    
+    //to delete a folder by swiping
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let contextualAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, nil) in
@@ -166,11 +158,11 @@ class MainTableViewController: UITableViewController {
     }
  
  
-
-
+    // To add new folder
     @IBAction func btnNewFolder(_ sender: UIBarButtonItem) {
         
         var alreadyExists = false
+        
         let alertController = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
         
         alertController.addTextField { (txtNewFolder) in
@@ -178,7 +170,7 @@ class MainTableViewController: UITableViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        cancelAction.setValue(UIColor.brown, forKey: "titleTextColor")
+        cancelAction.setValue(UIColor.orange, forKey: "titleTextColor")
         
         
         let addItemAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
@@ -187,6 +179,7 @@ class MainTableViewController: UITableViewController {
 //            self.folders!.append(textField.text!)
             let newFolder = FoldersNotes(folderName: textField.text!, notes: [])
             
+            // check if folder name already exists
             for folder in FoldersNotes.folders{
                 if textField.text! == folder.folderName{
                     self.showAlert("Name Taken", "Please choose a different name")

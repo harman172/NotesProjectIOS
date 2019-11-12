@@ -81,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesCell" textLabel="8FP-Qw-2S5" style="IBUITableViewCellStyleDefault" id="q9a-2i-cNw">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="notesCell" textLabel="8FP-Qw-2S5" style="IBUITableViewCellStyleDefault" id="q9a-2i-cNw">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q9a-2i-cNw" id="fcx-yY-ZTk">
@@ -97,6 +97,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="fun-ZS-BbK" kind="show" identifier="cellSegue" trigger="accessoryAction" id="6Ec-E9-HrJ"/>
                                 </connections>
@@ -127,12 +128,13 @@
                         <barButtonItem title="Add new note" image="pencil.and.ellipsis.rectangle" catalog="system" id="rel-7t-eAO">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="fun-ZS-BbK" kind="show" identifier="addNewSegue" id="zQu-bD-5YX"/>
+                                <segue destination="fun-ZS-BbK" kind="show" identifier="addNoteSegue" id="zQu-bD-5YX"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Notes" largeTitleDisplayMode="always" id="b1T-MZ-Su9">
                         <barButtonItem key="rightBarButtonItem" title="Toggle buttpn" image="ellipsis" catalog="system" id="79D-xz-w6b">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="toggleButton:" destination="dnO-Ym-Kfp" id="Uab-h7-bID"/>
                             </connections>
@@ -163,6 +165,9 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonCancel:" destination="ckx-zl-r96" eventType="touchUpInside" id="6jz-m7-IFT"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4fe-k3-VXh">
                                 <rect key="frame" x="0.0" y="101" width="375" height="546"/>
@@ -211,6 +216,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LK2-lX-5Xl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TnZ-HW-Xfy">
@@ -235,16 +241,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DUf-xG-74T">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DUf-xG-74T">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="DUf-xG-74T" firstAttribute="leading" secondItem="ab5-pc-WPq" secondAttribute="leading" id="Bqq-y7-U5M"/>
+                            <constraint firstItem="DUf-xG-74T" firstAttribute="bottom" secondItem="ab5-pc-WPq" secondAttribute="bottom" id="eS1-Xf-gLq"/>
+                            <constraint firstItem="DUf-xG-74T" firstAttribute="top" secondItem="ab5-pc-WPq" secondAttribute="top" id="xcp-yw-mSu"/>
+                            <constraint firstItem="DUf-xG-74T" firstAttribute="trailing" secondItem="ab5-pc-WPq" secondAttribute="trailing" id="y5g-9v-nqR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ab5-pc-WPq"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y8l-dd-pJu"/>
@@ -265,6 +277,6 @@
         <image name="tray.and.arrow.down" catalog="system" width="64" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6Ec-E9-HrJ"/>
+        <segue reference="zQu-bD-5YX"/>
     </inferredMetricsTieBreakers>
 </document>
