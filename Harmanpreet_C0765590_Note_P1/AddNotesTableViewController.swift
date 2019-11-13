@@ -76,7 +76,7 @@ class AddNotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
            selectedIndex.append(indexPath.row)
-//           print("selected...\(selectedIndex)")
+           print("selected...\(selectedIndex)")
            
        }
        
@@ -90,7 +90,7 @@ class AddNotesTableViewController: UITableViewController {
                }
            }
       
-//           print("Deselected...\(selectedIndex)")
+           print("Deselected...\(selectedIndex)")
        }
 
     /*
@@ -159,7 +159,7 @@ class AddNotesTableViewController: UITableViewController {
     func addNewNote(note: String){
         FoldersNotes.folders[curFolderIndex!].notes.append(note)
         notesTableView.reloadData()
-        print(FoldersNotes.folders[curFolderIndex!].notes)
+//        print(FoldersNotes.folders[curFolderIndex!].notes)
     }
 
     func updateItem(item: String){
@@ -227,6 +227,7 @@ class AddNotesTableViewController: UITableViewController {
         }
         
         tableView.reloadData()
+        selectedIndex = []
     }
     
     
